@@ -1,2 +1,2 @@
 # authentication
-Project to emulate the authentication part
+Project to simulate the authentication part
