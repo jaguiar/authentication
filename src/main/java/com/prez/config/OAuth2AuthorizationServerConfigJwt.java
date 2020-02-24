@@ -58,7 +58,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .withClient(CLIENT_ID)
                 .secret(passwordEncoder().encode("secret"))
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
-                .scopes("account.read", "account.write")
+                .scopes("customer.read", "customer.write")
                 .accessTokenValiditySeconds(DEFAULT_VALIDITY_SECONDS)
                 .refreshTokenValiditySeconds(2592000)  // 30 days
                 .redirectUris("http://localhost:8089/")
