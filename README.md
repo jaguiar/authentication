@@ -17,3 +17,6 @@ mvn spring-boot:run
 To log in with other applications : 
 User : john/123
 
+Run docker-compose and
+Launch the dummy-oauth-client app and the customer-java-resttemplate app to test
+
