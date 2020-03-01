@@ -56,7 +56,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
     public void configure(final ClientDetailsServiceConfigurer clients) throws Exception { // @formatter:off
         clients.inMemory()
                 .withClient(CLIENT_ID)
-                .secret(passwordEncoder().encode("secret"))
+                .secret(passwordEncoder().encode("DontDoThisAtHome"))
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
                 .scopes("customer.read", "customer.write")
                 .accessTokenValiditySeconds(DEFAULT_VALIDITY_SECONDS)

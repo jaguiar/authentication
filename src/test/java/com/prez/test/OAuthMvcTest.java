@@ -37,7 +37,7 @@ public class OAuthMvcTest {
     private MockMvc mockMvc;
 
     private static final String CLIENT_ID = "randomClientId";
-    private static final String CLIENT_SECRET = "secret";
+    private static final String CLIENT_SECRET = "DontDoThisAtHome";
 
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
 

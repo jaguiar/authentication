@@ -1,5 +1,6 @@
 package com.prez.test;
 
+import com.prez.config.AuthorizationServerApplication;
 import com.prez.test.dummy.DummyResourceApp;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -18,7 +19,7 @@ import static org.junit.Assert.assertThat;
 
 // need dummy-oauth-authorization-server to run
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = DummyResourceApp.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = AuthorizationServerApplication.class)
 @TestPropertySource(properties = {
         "server.port=8082"
 })
@@ -49,7 +50,7 @@ public class TokenLiveTest {
         params.put("client_id", clientId);
         params.put("username", username);
         params.put("password", password);
-        return RestAssured.given().auth().preemptive().basic(clientId, "secret").and().with().params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/token");
+        return RestAssured.given().auth().preemptive().basic(clientId, "DontDoThisAtHome").and().with().params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/token");
         // response.jsonPath().getString("refresh_token");
         // response.jsonPath().getString("access_token")
     }
@@ -59,7 +60,7 @@ public class TokenLiveTest {
         params.put("grant_type", "refresh_token");
         params.put("client_id", clientId);
         params.put("refresh_token", refreshToken);
-        final Response response = RestAssured.given().auth().preemptive().basic(clientId, "secret").and().with().params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/token");
+        final Response response = RestAssured.given().auth().preemptive().basic(clientId, "DontDoThisAtHome").and().with().params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/token");
         return response.jsonPath().getString("access_token");
     }
 
@@ -68,13 +69,13 @@ public class TokenLiveTest {
         params.put("response_type", "code");
         params.put("client_id", clientId);
         params.put("scope", "read,write");
-        final Response response = RestAssured.given().auth().preemptive().basic(clientId, "secret").and().with().params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/authorize");
+        final Response response = RestAssured.given().auth().preemptive().basic(clientId, "DontDoThisAtHome").and().with().params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/authorize");
     }
 
     private Response checkToken(final String clientId, String accessToken) {
         final Map<String, String> params = new HashMap<String, String>();
         params.put("token", accessToken);
-        return RestAssured.given().with().auth().preemptive().basic(clientId, "secret").params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/check_token");
+        return RestAssured.given().with().auth().preemptive().basic(clientId, "DontDoThisAtHome").params(params).when().post("http://localhost:8081/spring-security-oauth-server/oauth/check_token");
     }
 
     @Test
@@ -88,7 +89,7 @@ public class TokenLiveTest {
     @Test
     public void getTokenKey() {
         String clientId = "randomClientId";
-        final Response tokenKey =  RestAssured.given().with().auth().preemptive().basic(clientId, "secret").when().get("http://localhost:8081/spring-security-oauth-server/oauth/token_key");
+        final Response tokenKey =  RestAssured.given().with().auth().preemptive().basic(clientId, "DontDoThisAtHome").when().get("http://localhost:8081/spring-security-oauth-server/oauth/token_key");
         System.out.println("tokenKey:" + tokenKey.asString());
         Response accessTokenResponse = obtainAccessToken(clientId, "john", "123");
         System.out.println("accessToken:" + accessTokenResponse.asString());
