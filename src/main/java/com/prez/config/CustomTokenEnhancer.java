@@ -23,7 +23,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         final Map<String, Object> additionalInfo = new HashMap<>();
-        additionalInfo.put("sub", accessToken.getValue());
+        additionalInfo.put("sub", authentication.getName());
         additionalInfo.put("iss", issuer);
         additionalInfo.put("azp", clientId);
         additionalInfo.put("tokenName", "id_token");
