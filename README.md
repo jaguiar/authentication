@@ -8,7 +8,7 @@ mvn clean install
 ```
 
 # Run
-To launch the authorization server on port 8081 on context /spring-security-oauth-server 
+To launch the authorization server on port 8081 on context /shady-authorization-server 
 ```sh
 mvn spring-boot:run
 ```

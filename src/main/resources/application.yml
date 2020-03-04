@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /spring-security-oauth-server
+    context-path: /shady-authorization-server
   port: 8081
 
 #spring.profiles.active=dev
@@ -9,8 +9,9 @@ logging:
   level:
     org.springframework: DEBUG
 
-connect:
+authorization-server:
   oauth2:
+    issuer: "http://localhost:${server.port}${server.servlet.context-path}"
     public-key:   |
                   -----BEGIN PUBLIC KEY-----
                   MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6vB+aOUF7s5sKGLCQPA2

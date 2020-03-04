@@ -27,7 +27,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         additionalInfo.put("iss", issuer);
         additionalInfo.put("azp", clientId);
         additionalInfo.put("tokenName", "id_token");
-        additionalInfo.put("realm", "/spring-security-oauth");
+        additionalInfo.put("realm", "/shady-authorization-server");
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
         return accessToken;
     }

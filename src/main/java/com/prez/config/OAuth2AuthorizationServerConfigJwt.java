@@ -37,15 +37,16 @@ import java.util.Arrays;
 public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfigurerAdapter {
 
     private static final int DEFAULT_VALIDITY_SECONDS = 3600; // 1 hour
-    private static final String ISSUER = "http://localhost:8081/spring-security-oauth";
     private static final String CLIENT_ID = "randomClientId";
 
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
-    @Value("${connect.oauth2.public-key:123}")
+    @Value("${authorization-server.oauth2.public-key:123}")
     private String publicKey;
+    @Value("${authorization-server.oauth2.issuer:http://localhost:8081/shady-authorization-server}")
+    private String issuer;
 
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
@@ -105,7 +106,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
 
     @Bean
     public TokenEnhancer tokenEnhancer() {
-        return new CustomTokenEnhancer(ISSUER, CLIENT_ID);
+        return new CustomTokenEnhancer(issuer, CLIENT_ID);
     }
 
     @Bean
