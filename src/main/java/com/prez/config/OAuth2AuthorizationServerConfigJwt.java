@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.jwt.crypto.sign.RsaSigner;
 import org.springframework.security.jwt.crypto.sign.RsaVerifier;
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -23,6 +25,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -47,6 +50,9 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
     private String publicKey;
     @Value("${authorization-server.oauth2.issuer:http://localhost:8081/shady-authorization-server}")
     private String issuer;
+
+    @Autowired
+    private AuthorizationEndpoint authorizationEndpoint;
 
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
@@ -112,5 +118,10 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @PostConstruct
+    public void init() {
+        authorizationEndpoint.setUserApprovalPage("forward:/oauth/custom_confirm_access");
     }
 }
