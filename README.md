@@ -18,4 +18,4 @@ To log in with other applications :
 User : john/123
 
 Run docker-compose and
-Launch the dummy-oauth-client app and the customer-java-resttemplate app to test
+Launch the [dummy-oauth-client app](https://github.com/jaguiar/customer-api/tree/master/dummy-oauth-client) and the [customer-java-resttemplate](https://github.com/jaguiar/customer-api/tree/master/customer-java-resttemplate) app, for example, to test
